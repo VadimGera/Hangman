@@ -2,62 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
-using Random = UnityEngine.Random;
 
 public class HangmanScript : MonoBehaviour
 {
-    
-        [SerializeField] private TextMeshProUGUI _hpText;
-        [SerializeField] private TextMeshProUGUI _letterText;
-        [SerializeField] private TextMeshProUGUI _fieldText;
+    [SerializeField] private TextMeshProUGUI _textField;
         [SerializeField] private int hp = 7;
-
-
-        public Restart gameManagerLose;
-        public Restart gameManagerWin;
-
+        
         private List<char> guessedLetters = new List<char>();
         private List<char> wrongTriedLetter = new List<char>();
 
-        
-
-        private string initialWord = "";
-
-        private char[] Letters =
-        {
-            'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
-            'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
-            'Z', 'X', 'C', 'V', 'B', 'N', 'M'
-        };
-
         private string[] words =
         {
-            "Mouse",
-            "Tree",
+            "Cat",
+            "Dog",
+            "Rain",
             "Unity",
-            "Program"
+            "Time"
         };
 
         private string wordToGuess = "";
-
+        
         private KeyCode lastKeyPressed;
 
-        
         private void Start()
         {
             var randomIndex = Random.Range(0, words.Length);
 
             wordToGuess = words[randomIndex];
-
-            for (var i = 0; i < wordToGuess.Length; i++)
-            {
-                initialWord += "_";
-            }
-
-            _fieldText.text = initialWord;
-            _hpText.text = "Hp left =" + hp.ToString();
-
         }
 
 
@@ -82,6 +53,7 @@ public class HangmanScript : MonoBehaviour
             print("Key Pressed: " + key);
 
             char pressedKeyString = key.ToString()[0];
+
             string wordUppercase = wordToGuess.ToUpper();
             
             bool wordContainsPressedKey = wordUppercase.Contains(pressedKeyString);
@@ -94,14 +66,12 @@ public class HangmanScript : MonoBehaviour
 
                 if (hp <= 0)
                 {
-                    gameManagerLose.gameOverLose();
-                    print("Lose");
+                    print("You Lost!");
                 }
                 else
                 {
-                    _hpText.text = "Hp left =" + hp.ToString();
+                    print("Wrong letter! Hp left = " + hp);
                 }
-                
             }
             
             if (wordContainsPressedKey && !letterWasGuessed)
@@ -126,16 +96,11 @@ public class HangmanScript : MonoBehaviour
 
             if (wordUppercase == stringToPrint)
             {
-                gameManagerWin.gameOverWin();
-                print("Win");
+                print("You win!");
             }
             
+            // print(string.Join(", ", guessedLetters));
             print(stringToPrint);
-            _fieldText.text = stringToPrint;
-
-
-
-
+            _textField.text = stringToPrint;
         }
 }
-
