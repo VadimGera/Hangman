@@ -6,18 +6,20 @@ using TMPro;
 public class HangmanScript : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _textField;
-        [SerializeField] private int hp = 7;
+    [SerializeField] private int hp = 6;
+    [SerializeField] private TextMeshProUGUI _hpCurrent;
+    [SerializeField] private GameObject restartPanelLose;
+    [SerializeField] private GameObject restartPanelWin;
         
         private List<char> guessedLetters = new List<char>();
         private List<char> wrongTriedLetter = new List<char>();
 
         private string[] words =
         {
-            "Cat",
+            "Tree",
             "Dog",
             "Rain",
-            "Unity",
-            "Time"
+            "Program"
         };
 
         private string wordToGuess = "";
@@ -52,25 +54,26 @@ public class HangmanScript : MonoBehaviour
         {
             print("Key Pressed: " + key);
 
-            char pressedKeyString = key.ToString()[0];
+            var pressedKeyString = key.ToString()[0];
 
-            string wordUppercase = wordToGuess.ToUpper();
+            var wordUppercase = wordToGuess.ToUpper();
             
-            bool wordContainsPressedKey = wordUppercase.Contains(pressedKeyString);
+            var wordContainsPressedKey = wordUppercase.Contains(pressedKeyString);
             bool letterWasGuessed = guessedLetters.Contains(pressedKeyString);
 
             if (!wordContainsPressedKey && !wrongTriedLetter.Contains(pressedKeyString))
             {
                 wrongTriedLetter.Add(pressedKeyString);
                 hp -= 1;
+                
 
                 if (hp <= 0)
                 {
-                    print("You Lost!");
+                    restartPanelLose.SetActive(true);
                 }
                 else
                 {
-                    print("Wrong letter! Hp left = " + hp);
+                    _hpCurrent.text = hp.ToString();
                 }
             }
             
@@ -96,7 +99,7 @@ public class HangmanScript : MonoBehaviour
 
             if (wordUppercase == stringToPrint)
             {
-                print("You win!");
+                restartPanelWin.SetActive(true);
             }
             
             // print(string.Join(", ", guessedLetters));

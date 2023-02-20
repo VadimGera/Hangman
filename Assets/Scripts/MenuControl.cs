@@ -13,6 +13,11 @@ namespace DefaultNamespace
             SceneManager.LoadSceneAsync(sceneName);
         }
 
+        public void PressedExit()
+        {
+            SceneManager.LoadSceneAsync(sceneName);
+        }
+
         public void ExitPressed()
         {
            Application.Quit();
