@@ -6,6 +6,7 @@ using TMPro;
 public class HangmanScript : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _textField;
+    [SerializeField] private TextMeshProUGUI _hintsTextField;
     [SerializeField] private int hp = 6;
     [SerializeField] private TextMeshProUGUI _hpCurrent;
     [SerializeField] private GameObject restartPanelLose;
@@ -19,10 +20,25 @@ public class HangmanScript : MonoBehaviour
             "Tree",
             "Dog",
             "Rain",
-            "Program"
+            "Program",
+            "PC",
+            "Snow",
+            "Phone"
+        };
+
+        private string[] hints =
+        {
+            "green leaves in summer",
+            "walking on the street",
+            "in bad autumn weather",
+            "need to make it work",
+            "we are working on it",
+            "outdoors in winter",
+            "you can call it"
         };
 
         private string wordToGuess = "";
+        private string hint = "";
         
         private KeyCode lastKeyPressed;
 
@@ -31,6 +47,8 @@ public class HangmanScript : MonoBehaviour
             var randomIndex = Random.Range(0, words.Length);
 
             wordToGuess = words[randomIndex];
+            hint = hints[randomIndex];
+            _hintsTextField.text = hint;
         }
 
 
