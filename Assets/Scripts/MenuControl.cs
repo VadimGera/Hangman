@@ -1,26 +1,23 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace DefaultNamespace
+public class MenuControl : MonoBehaviour
 {
-    public class MenuControl : MonoBehaviour
+    [SerializeField] private string sceneName;
+
+
+    public void PlayPressed()
     {
-        [SerializeField] private string sceneName;
+        SceneManager.LoadSceneAsync(sceneName);
+    }
 
+    public void PressedExit()
+    {
+        SceneManager.LoadSceneAsync(sceneName);
+    }
 
-        public void PlayPressed()
-        {
-            SceneManager.LoadSceneAsync(sceneName);
-        }
-
-        public void PressedExit()
-        {
-            SceneManager.LoadSceneAsync(sceneName);
-        }
-
-        public void ExitPressed()
-        {
-           Application.Quit();
-        }
+    public void ExitPressed()
+    {
+        Application.Quit();
     }
 }
